@@ -73,8 +73,8 @@ const getTeams = leagueID => {
                         <img src="${urlTeamImage}" alt="${team.name}" class="responsive-img center-align" width="50%" >
                     </div>
                     <div class="col s8 information-team">
-                    <span>${team.name}</span>
-                    <span class="badge-blue">${team.venue}</span>
+                    <span class="badge-blue"><strong>${team.name}</strong></span>
+                    <span>${team.venue}</span>
                     </div>
                 </div>
                 <div class="card-action right-align">

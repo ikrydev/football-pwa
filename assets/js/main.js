@@ -1,6 +1,5 @@
 import loadNav from './modules/nav.js'
 import loadPage from './modules/page.js'
-import listener from './modules/listener.js'
 
 // if("serviceWorker" in navigator){
 //     window.addEventListener("load", () => {
@@ -17,5 +16,3 @@ document.addEventListener('DOMContentLoaded', () => {
     loadNav()
     loadPage()
 })
-
-window.addBookmarkTeam = listener.addBookmarkTeam

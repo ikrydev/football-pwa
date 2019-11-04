@@ -5,7 +5,6 @@ const addBookmarkTeam = (id,logo,name,venue,website) => {
 }
 
 const getAllTeam = () => {
-    console.log('here')
     database.getTeam()
         .then(data => {
             let teamsHTML = ''
@@ -19,13 +18,13 @@ const getAllTeam = () => {
                             <img src="${team.logo}" alt="${team.name}" class="responsive-img center-align" width="50%" >
                         </div>
                         <div class="col s8 information-team">
-                        <span>${team.name}</span>
-                        <span class="badge-blue">${team.venue}</span>
+                        <span class="badge-blue"><strong>${team.name}</strong></span>
+                        <span>${team.venue}</span>
                         </div>
                     </div>
                     <div class="card-action right-align">
                         <a href="${team.website}" target="_blank" class="website-action">WEBSITE</a>
-                        <button class="waves-effect waves-light btn orange accent-3">REMOVE</button>
+                        <button onclick="deleteBookmarkTeam(${team.id})" class="waves-effect waves-light btn red accent-3">REMOVE</button>
                     </div>
                     </div>
                 </div>
@@ -36,7 +35,13 @@ const getAllTeam = () => {
         })
 }
 
+const deleteBookmarkTeam = id => {
+    database.deleteTeam(id)
+    getAllTeam()
+}
+
 export default {
     addBookmarkTeam,
-    getAllTeam
+    getAllTeam,
+    deleteBookmarkTeam
 }

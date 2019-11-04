@@ -24,6 +24,17 @@ const addTeam = ({id,logo,name,venue,website}) => {
     .catch(() => console.log('Gagal Menyimpan Tim'))
 }
 
+const deleteTeam = id => {
+    dbPromise
+        .then(db => {
+            let tx = db.transaction('teams', 'readwrite')
+            let store = tx.objectStore('teams')
+            store.delete(id)
+            return tx.complete
+        })
+        .then(() => console.log('Item Deleted'))
+}
+
 const getTeam = () => {
     return dbPromise
         .then(db => {
@@ -37,5 +48,6 @@ const getTeam = () => {
 
 export default {
     addTeam,
+    deleteTeam,
     getTeam
 }

@@ -13,8 +13,20 @@ const loadPage = (path = 'home') => {
                 let mediumContent = document.querySelector('#mediumContent')
                 if(mediumContent) document.querySelector('#smallContent').innerHTML = mediumContent.innerHTML
                 if(path === 'home') api.getStandings(2021)
-                if(path === 'teams') api.getTeams(2021)
-                if(path === 'bookmark') listener.getAllTeam()
+                if(path === 'bookmark'){
+                    //fetch Bookmark Team
+                    listener.getAllTeam()
+
+                    //register listener
+                    window.deleteBookmarkTeam = listener.deleteBookmarkTeam
+                }
+                if(path === 'teams'){
+                    //fetch Teams
+                    api.getTeams(2021)
+                    //register listener
+                    window.addBookmarkTeam = listener.addBookmarkTeam
+                }
+                
             }else if(xhr.status == 404){
                 element.innerHTML = "<h1>Halaman Tidak Ditemukan</h1>"
             }else{
