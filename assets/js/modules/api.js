@@ -14,10 +14,8 @@ let status = res => {
 
 const getStandings = leagueID => {
     if('caches' in window){
-        console.log('Iya ada')
         caches.match(`${base_url}/v2/competitions/${leagueID}/teams`)
         .then(res => {
-            console.log(res)
             if(res){
                 res.json()
                 .then(data => {
