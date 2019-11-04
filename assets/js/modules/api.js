@@ -1,3 +1,5 @@
+import database from './database.js'
+
 const base_url = 'https://api.football-data.org'
 const api_token = 'd327b3f79ad54560ac84595be3610b21'
 
@@ -59,7 +61,6 @@ const getTeams = leagueID => {
     .then(data => {
         let teamsHTML = ''
         data = data.teams
-        console.log(data)
         data.forEach(team => {
             let urlTeamImage = team.crestUrl
             urlTeamImage = urlTeamImage.replace(/^http:\/\//i, 'https://')
@@ -76,9 +77,9 @@ const getTeams = leagueID => {
                     <span class="badge-blue">${team.venue}</span>
                     </div>
                 </div>
-                <div class="card-action">
+                <div class="card-action right-align">
                     <a href="${team.website}" target="_blank" class="website-action">WEBSITE</a>
-                    <a href="#" class="bookmark-action">BOOKMARK</a>
+                    <button onclick="addBookmarkTeam(${team.id},'${urlTeamImage}','${team.name}','${team.venue}','${team.website}')" class="waves-effect waves-light btn orange accent-3">BOOKMARK</button>
                 </div>
                 </div>
             </div>

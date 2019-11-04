@@ -1,4 +1,5 @@
 import api from './api.js'
+import listener from './listener.js'
 
 let path = window.location.hash.substr(1)
 
@@ -13,6 +14,7 @@ const loadPage = (path = 'home') => {
                 if(mediumContent) document.querySelector('#smallContent').innerHTML = mediumContent.innerHTML
                 if(path === 'home') api.getStandings(2021)
                 if(path === 'teams') api.getTeams(2021)
+                if(path === 'bookmark') listener.getAllTeam()
             }else if(xhr.status == 404){
                 element.innerHTML = "<h1>Halaman Tidak Ditemukan</h1>"
             }else{
