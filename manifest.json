@@ -1,0 +1,16 @@
+{
+    "name": "Football Standings - PWA",
+    "short_name": "footballPWA",
+    "description": "Football Standings - PWA",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#82b1ff",
+    "theme_color": "#0d47a1",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
