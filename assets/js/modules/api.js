@@ -13,6 +13,46 @@ let status = res => {
 }
 
 const getStandings = leagueID => {
+    if('caches' in window){
+        console.log('Iya ada')
+        caches.match(`${base_url}/v2/competitions/${leagueID}/teams`)
+        .then(res => {
+            console.log(res)
+            if(res){
+                res.json()
+                .then(data => {
+                    let standingsHTML = ''
+                    data = data.standings[0].table
+
+                    data.forEach(dataTeam => {
+                        let urlTeamImage = dataTeam.team.crestUrl
+                        urlTeamImage = urlTeamImage.replace(/^http:\/\//i, 'https://')
+                        standingsHTML +=
+                        `
+                        <tr>
+                            <td>${dataTeam.position}</td>
+                            <td><img src="${urlTeamImage}" alt="${dataTeam.team.name}" class="responsive-img" width="30"></td>
+                            <td>${dataTeam.team.name}</td>
+                            <td>${dataTeam.playedGames}</td>
+                            <td>${dataTeam.won}</td>
+                            <td>${dataTeam.draw}</td>
+                            <td>${dataTeam.lost}</td>
+                            <td>${dataTeam.goalsFor}</td>
+                            <td>${dataTeam.goalsAgainst}</td>
+                            <td>${dataTeam.goalDifference}</td>
+                            <td>${dataTeam.points}</td>
+                        </tr>
+                        `
+                    })
+                    document.getElementById('progress').style.display = 'none'
+                    document.getElementById('standings').innerHTML = standingsHTML
+                })
+                .catch(err => console.log(err))
+            }
+        })
+        
+    }
+    
     fetch(`${base_url}/v2/competitions/${leagueID}/standings`,{
         headers:{
             'X-Auth-Token' : api_token
@@ -23,7 +63,7 @@ const getStandings = leagueID => {
     .then(data => {
         let standingsHTML = ''
         data = data.standings[0].table
-        
+
         data.forEach(dataTeam => {
             let urlTeamImage = dataTeam.team.crestUrl
             urlTeamImage = urlTeamImage.replace(/^http:\/\//i, 'https://')
