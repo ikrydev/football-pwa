@@ -1,13 +1,13 @@
 ## 🚀 Football-PWA
-> Aplikasi Informasi Jadwal Sepak Bola Sederhana dengan memanfaatkan API dari football-data.org.
+> Aplikasi Informasi Sepak Bola Sederhana dengan memanfaatkan API dari football-data.org.
 
 ## Deploy
 
 
 ### Ongoing Features
-- [ ] Page Previous Match
-- [ ] Page Upcoming Match
-- [ ] Page Bookmark Match/Team
+- [ ] Page Football Standings
+- [ ] Page Football Teams
+- [ ] Page Bookmark Teams
 - [ ] IndexexDB
 - [ ] Push Notification
 - [ ] PWA Module - Cache
