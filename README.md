@@ -5,12 +5,12 @@
 
 
 ### Ongoing Features
-- [ ] Page Football Standings
-- [ ] Page Football Teams
-- [ ] Page Bookmark Teams
-- [ ] IndexexDB
+- [x] Page Football Standings
+- [x] Page Football Teams
+- [x] Page Bookmark Teams
+- [x] IndexexDB (Create Bookmark, Remove Bookmark)
 - [ ] Push Notification
-- [ ] PWA Module - Cache
+- [x] PWA Module - Cache
 - [ ] PWA Module - Add To Home Scren/Standalone Apps
 - [ ] PWA Module - Available to Offline
 - [ ] PWA Module - Splash Screen
