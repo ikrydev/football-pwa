@@ -12,15 +12,17 @@ const assets = [
     '/favicon.ico',
     '/icon.png',
     '/assets/css/main.css',
-    '/assets/js/main.js',
     '/assets/css/materialize.min.css',
+    '/assets/js/main.js',
     '/assets/js/materialize.min.js',
 
 ]
 const modules = [
     '/assets/js/modules/api.js',
     '/assets/js/modules/nav.js',
-    '/assets/js/modules/page.js'
+    '/assets/js/modules/page.js',
+    '/assets/js/modules/database.js',
+    '/assets/js/modules/listener.js'
 ]
 
 const urlsToCache = [...main,...assets,...modules]

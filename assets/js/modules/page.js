@@ -12,7 +12,10 @@ const loadPage = (path = 'home') => {
                 element.innerHTML = xhr.responseText
                 let mediumContent = document.querySelector('#mediumContent')
                 if(mediumContent) document.querySelector('#smallContent').innerHTML = mediumContent.innerHTML
-                if(path === 'home') api.getStandings(2021)
+                if(path === 'home'){
+                    //feth Standings
+                    api.getStandings(2021)
+                }
                 if(path === 'bookmark'){
                     //fetch Bookmark Team
                     listener.getAllTeam()
