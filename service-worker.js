@@ -11,6 +11,7 @@ const main = [
 const assets = [
     '/favicon.ico',
     '/icon.png',
+    '/assets/js/idb.js',
     '/assets/css/main.css',
     '/assets/css/materialize.min.css',
     '/assets/js/main.js',
