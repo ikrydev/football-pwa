@@ -1,4 +1,4 @@
-const CACHE_NAME = 'football-pwa-v2'
+const CACHE_NAME = 'football-pwa-v3'
 const main = [
     '/',
     '/manifest.json',
