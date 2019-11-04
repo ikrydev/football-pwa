@@ -8,3 +8,18 @@ body{
     letter-spacing: 2px;
     line-height: 25px;
 }
+
+.information-team > span{
+    display: block;
+    margin-top: 5px;
+}
+
+.website-action{
+    color: #0d47a1 !important;
+}
+
+.badge-blue{
+    background-color: #0d47a1;
+    color: #ffffff;
+    padding: 5px;
+}

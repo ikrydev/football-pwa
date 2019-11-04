@@ -12,6 +12,7 @@ const loadPage = (path = 'home') => {
                 let mediumContent = document.querySelector('#mediumContent')
                 if(mediumContent) document.querySelector('#smallContent').innerHTML = mediumContent.innerHTML
                 if(path === 'home') api.getStandings(2021)
+                if(path === 'teams') api.getTeams(2021)
             }else if(xhr.status == 404){
                 element.innerHTML = "<h1>Halaman Tidak Ditemukan</h1>"
             }else{

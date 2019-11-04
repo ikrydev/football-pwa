@@ -20,8 +20,8 @@ const getStandings = leagueID => {
     .then(res => res.json())
     .then(data => {
         let standingsHTML = ''
-        console.log(data)
         data = data.standings[0].table
+        
         data.forEach(dataTeam => {
             let urlTeamImage = dataTeam.team.crestUrl
             urlTeamImage = urlTeamImage.replace(/^http:\/\//i, 'https://')
@@ -48,6 +48,49 @@ const getStandings = leagueID => {
     .catch(err => console.log(err))
 }
 
+const getTeams = leagueID => {
+    fetch(`${base_url}/v2/competitions/${leagueID}/teams`,{
+        headers : {
+            'X-Auth-Token' : api_token
+        }
+    })
+    .then(status)
+    .then(res => res.json())
+    .then(data => {
+        let teamsHTML = ''
+        data = data.teams
+        console.log(data)
+        data.forEach(team => {
+            let urlTeamImage = team.crestUrl
+            urlTeamImage = urlTeamImage.replace(/^http:\/\//i, 'https://')
+            teamsHTML  +=
+            `
+            <div class="col s12">
+                <div class="card">
+                <div class="card-content row valign-wrapper">
+                    <div class="col s4" class="logo-team">
+                        <img src="${urlTeamImage}" alt="${team.name}" class="responsive-img center-align" width="50%" >
+                    </div>
+                    <div class="col s8 information-team">
+                    <span>${team.name}</span>
+                    <span class="badge-blue">${team.venue}</span>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <a href="${team.website}" target="_blank" class="website-action">WEBSITE</a>
+                    <a href="#" class="bookmark-action">BOOKMARK</a>
+                </div>
+                </div>
+            </div>
+            `
+        })
+        document.getElementById('progress').style.display = 'none'
+        document.getElementById('teams').innerHTML = teamsHTML
+    })
+    .catch(err => console.log(err))
+}
+
 export default {
-    getStandings
+    getStandings,
+    getTeams
 }
