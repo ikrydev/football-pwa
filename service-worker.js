@@ -29,7 +29,6 @@ self.addEventListener('install', event => {
             .open(CACHE_NAME)
             .then(cache => cache.addAll(urlsToCache))
     )
-    console.log('Skip Waiting')
     self.skipWaiting();
 })
 
