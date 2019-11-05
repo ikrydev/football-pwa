@@ -12,7 +12,10 @@ if("serviceWorker" in navigator){
     console.log("Service Worker it is not supported!")
 }
 
+let path = window.location.hash.substr(1)
+path ? path = path : path = 'home'
+
 document.addEventListener('DOMContentLoaded', () => {
     loadNav()
-    loadPage()
+    loadPage(path)
 })
