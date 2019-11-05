@@ -50,10 +50,10 @@ self.addEventListener('fetch', event => {
                 .match(event.request, { cacheName: CACHE_NAME })
                 .then(response => {
                     if(response){
-                        console.log(`Service Worker: Gunakan aset dari cache: ${response.url}`)
+                        //console.log(`Service Worker: Gunakan aset dari cache: ${response.url}`)
                         return response
                     }
-                    console.log(`ServiceWorker: Memuat aset dari server: ${event.request.url}`)
+                    //console.log(`ServiceWorker: Memuat aset dari server: ${event.request.url}`)
                     return fetch(event.request)
                 })
         )
@@ -69,6 +69,25 @@ self.addEventListener('activate', event => {
                         if(cacheName != CACHE_NAME) return caches.delete(cacheName)
                     })
                 ))
+    )
+})
+
+//Response to Push Notification
+self.addEventListener('push', event => {
+    let body
+
+    event.data ? body = event.data.text() : body = 'No Payload'
+    const options = {
+        body : body,
+        icon : '/icon.png',
+        vibrate: [100, 50, 100],
+        data: {
+            dateOfArrival: Date.now(),
+            primaryKey: 1
+        }
+    }
+    event.waitUntil(
+        self.registration.showNotification('Push Notification', options)
     )
 })
 

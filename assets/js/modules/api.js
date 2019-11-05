@@ -1,5 +1,3 @@
-import database from './database.js'
-
 const base_url = 'https://api.football-data.org'
 const api_token = 'd327b3f79ad54560ac84595be3610b21'
 

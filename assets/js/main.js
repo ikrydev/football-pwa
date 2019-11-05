@@ -1,19 +1,13 @@
 import loadNav from './modules/nav.js'
 import loadPage from './modules/page.js'
-
-if("serviceWorker" in navigator){
-    window.addEventListener("load", () => {
-        navigator.serviceWorker
-            .register('./service-worker.js')
-            .then(() => console.log("Register Success"))
-            .catch(() => console.log("Register Not Success"))
-    })
-}else{
-    console.log("Service Worker it is not supported!")
-}
+import pwa from './modules/pwa.js'
 
 let path = window.location.hash.substr(1)
 path ? path = path : path = 'home'
+
+//Invoke PWA modules
+pwa.registration()
+pwa.notification()
 
 document.addEventListener('DOMContentLoaded', () => {
     loadNav()
