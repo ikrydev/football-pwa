@@ -1,4 +1,4 @@
-const CACHE_NAME = 'football-pwa-v1'
+const CACHE_NAME = 'football-pwa-v1.2'
 const urlsToCache = [
     '/',
     '/manifest.json',
@@ -18,7 +18,8 @@ const urlsToCache = [
     '/assets/js/modules/nav.js',
     '/assets/js/modules/page.js',
     '/assets/js/modules/database.js',
-    '/assets/js/modules/listener.js'
+    '/assets/js/modules/listener.js',
+    '/assets/js/modules/pwa.js'
 ]
 
 //Install Service Worker
