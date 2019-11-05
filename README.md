@@ -11,9 +11,9 @@
 - [x] IndexexDB (Create Bookmark, Remove Bookmark)
 - [ ] Push Notification
 - [x] PWA Module - Cache
-- [ ] PWA Module - Add To Home Scren/Standalone Apps
-- [ ] PWA Module - Available to Offline
-- [ ] PWA Module - Splash Screen
+- [x] PWA Module - Add To Home Scren/Standalone Apps
+- [x] PWA Module - Available to Offline
+- [x] PWA Module - Splash Screen
 
 * * *
 
