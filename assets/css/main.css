@@ -23,3 +23,7 @@ body{
     color: #ffffff;
     padding: 5px;
 }
+
+.page-footer{
+    padding: 15px !important;
+}

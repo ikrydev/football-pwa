@@ -1,4 +1,4 @@
-const CACHE_NAME = 'footballPWA-v1'
+const CACHE_NAME = 'footballPWA-v2'
 const urlsToCache = [
     '/',
     '/manifest.json',
@@ -67,7 +67,10 @@ self.addEventListener('activate', event => {
         caches.keys()
                 .then(cacheNames => Promise.all(
                     cacheNames.map(cacheName => {
-                        if(cacheName != CACHE_NAME) return caches.delete(cacheName)
+                        if(cacheName != CACHE_NAME && cacheName.startsWith('footballPWA')){
+                            console.log('Delete Older Cachec',cacheName)
+                            return caches.delete(cacheName)
+                        }
                     })
                 ))
     )
