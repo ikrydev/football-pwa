@@ -1,4 +1,4 @@
-const CACHE_NAME = 'footballPWA-v2'
+const CACHE_NAME = 'footballPWA-v1'
 const urlsToCache = [
     '/',
     '/manifest.json',
@@ -29,6 +29,8 @@ self.addEventListener('install', event => {
             .open(CACHE_NAME)
             .then(cache => cache.addAll(urlsToCache))
     )
+    console.log('Skip Waiting')
+    self.skipWaiting();
 })
 
 //Fetch Service Worker
@@ -68,7 +70,7 @@ self.addEventListener('activate', event => {
                 .then(cacheNames => Promise.all(
                     cacheNames.map(cacheName => {
                         if(cacheName != CACHE_NAME && cacheName.startsWith('footballPWA')){
-                            console.log('Delete Older Cachec',cacheName)
+                            console.log('Delete Older Cache : ',cacheName)
                             return caches.delete(cacheName)
                         }
                     })
