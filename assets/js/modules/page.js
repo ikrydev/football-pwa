@@ -1,8 +1,6 @@
 import api from './api.js'
 import listener from './listener.js'
 
-let path = window.location.hash.substr(1)
-
 const loadPage = (path = 'home') => {
     let xhr = new XMLHttpRequest()
     xhr.onreadystatechange = () => {
@@ -10,8 +8,6 @@ const loadPage = (path = 'home') => {
             let element = document.querySelector('#body-content')
             if(xhr.status == 200){
                 element.innerHTML = xhr.responseText
-                let mediumContent = document.querySelector('#mediumContent')
-                if(mediumContent) document.querySelector('#smallContent').innerHTML = mediumContent.innerHTML
                 if(path === 'home'){
                     //feth Standings
                     api.getStandings(2021)

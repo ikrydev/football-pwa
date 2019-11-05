@@ -1,14 +1,12 @@
-const CACHE_NAME = 'football-pwa-v3'
-const main = [
+const CACHE_NAME = 'football-pwa-v1'
+const urlsToCache = [
     '/',
     '/manifest.json',
     '/index.html',
     '/src/components/nav.html',
     '/src/pages/home.html',
     '/src/pages/teams.html',
-    '/src/pages/bookmark.html'
-]
-const assets = [
+    '/src/pages/bookmark.html',
     '/favicon.ico',
     '/icon.png',
     '/assets/js/idb.js',
@@ -16,17 +14,12 @@ const assets = [
     '/assets/css/materialize.min.css',
     '/assets/js/main.js',
     '/assets/js/materialize.min.js',
-
-]
-const modules = [
     '/assets/js/modules/api.js',
     '/assets/js/modules/nav.js',
     '/assets/js/modules/page.js',
     '/assets/js/modules/database.js',
     '/assets/js/modules/listener.js'
 ]
-
-const urlsToCache = [...main,...assets,...modules]
 
 //Install Service Worker
 self.addEventListener('install', event => {
@@ -39,7 +32,7 @@ self.addEventListener('install', event => {
 
 //Fetch Service Worker
 self.addEventListener('fetch', event => {
-    let base_url = 'https://api.football-data.org'
+    let base_url = 'https://api.football-data.org/'
     if(event.request.url.indexOf(base_url) > -1){
         event.respondWith(
             caches.open(CACHE_NAME)
@@ -53,8 +46,16 @@ self.addEventListener('fetch', event => {
         )
     }else{
         event.respondWith(
-            caches.match(event.request, {ignoreSearch: true})
-                .then(response => response || fetch(event.request))
+            caches
+                .match(event.request, { cacheName: CACHE_NAME })
+                .then(response => {
+                    if(response){
+                        console.log(`Service Worker: Gunakan aset dari cache: ${response.url}`)
+                        return response
+                    }
+                    console.log(`ServiceWorker: Memuat aset dari server: ${event.request.url}`)
+                    return fetch(event.request)
+                })
         )
     }
 })
