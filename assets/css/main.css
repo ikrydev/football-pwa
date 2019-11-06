@@ -9,6 +9,10 @@ body{
     line-height: 25px;
 }
 
+#body-content{
+    min-height: 85vh;
+}
+
 .information-team > span{
     display: block;
     margin-top: 5px;
