@@ -2,7 +2,9 @@
 > Aplikasi Informasi Sepak Bola Sederhana dengan memanfaatkan API dari football-data.org.
 
 ## Deploy
-[![Netlify Status](https://api.netlify.com/api/v1/badges/364ae141-ed80-447e-ad11-b3b8d7227d30/deploy-status)](https://app.netlify.com/sites/football-pwa/deploys)
+Demo with Workbox : https://football-pwa-workbox.firebaseapp.com/
+
+Demo without Workbox : https://football-pwa.netlify.com/
 
 ## Features
 - [x] Page Football Standings
