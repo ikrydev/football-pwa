@@ -22,7 +22,7 @@ const notification = () => {
                     console.log('Default!')
                     return
                 }
-                if(('PushManager' in window)){
+                if('PushManager' in window){
                     navigator.serviceWorker.getRegistration()
                         .then(reg => {
                             reg.pushManager
