@@ -1,86 +1,74 @@
-const CACHE_NAME = 'footballPWA-v1'
-const urlsToCache = [
-    '/',
-    '/manifest.json',
-    '/index.html',
-    '/src/components/nav.html',
-    '/src/pages/home.html',
-    '/src/pages/teams.html',
-    '/src/pages/bookmark.html',
-    '/favicon.ico',
-    '/icon.png',
-    '/assets/js/idb.js',
-    '/assets/css/main.css',
-    '/assets/css/materialize.min.css',
-    '/assets/js/main.js',
-    '/assets/js/materialize.min.js',
-    '/assets/js/modules/api.js',
-    '/assets/js/modules/nav.js',
-    '/assets/js/modules/page.js',
-    '/assets/js/modules/database.js',
-    '/assets/js/modules/listener.js',
-    '/assets/js/modules/pwa.js'
-]
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js')
 
-//Install Service Worker
-self.addEventListener('install', event => {
-    event.waitUntil(
-        caches
-            .open(CACHE_NAME)
-            .then(cache => cache.addAll(urlsToCache))
-    )
-    self.skipWaiting();
-})
+workbox.clientsClaim()
 
-//Fetch Service Worker
-self.addEventListener('fetch', event => {
-    let base_url = 'https://api.football-data.org/'
-    if(event.request.url.indexOf(base_url) > -1){
-        event.respondWith(
-            caches.open(CACHE_NAME)
-                .then(cache => {
-                    return fetch(event.request)
-                            .then(response => {
-                                cache.put(event.request.url, response.clone())
-                                return response
-                            })
-                })
-        )
-    }else{
-        event.respondWith(
-            caches
-                .match(event.request, { cacheName: CACHE_NAME })
-                .then(response => {
-                    if(response){
-                        //console.log(`Service Worker: Gunakan aset dari cache: ${response.url}`)
-                        return response
-                    }
-                    //console.log(`ServiceWorker: Memuat aset dari server: ${event.request.url}`)
-                    return fetch(event.request)
-                })
-        )
-    }
-})
+//Pre Cache Resources
+workbox.precaching.precacheAndRoute([
+    {url: '/manifest.json', revision: '1'},
+    {url: '/index.html', revision: '1'},
+    {url: '/icon.png', revision: '1'},
+    {url: '/favicon.ico', revision: '1'},
+    {url: '/assets/css/materialize.min.css', revision: '1'},
+    {url: '/assets/css/main.css', revision: '1'},
+    {url: '/assets/js/materialize.min.js', revision: '1'},
+    {url: '/assets/js/main.js', revision: '1'},
+    {url: '/assets/js/idb.js', revision: '1'},
+    {url: '/assets/js/modules/api.js', revision: '1'},
+    {url: '/assets/js/modules/database.js', revision: '1'},
+    {url: '/assets/js/modules/listener.js', revision: '1'},
+    {url: '/assets/js/modules/nav.js', revision: '1'},
+    {url: '/assets/js/modules/page.js', revision: '1'},
+    {url: '/assets/js/modules/pwa.js', revision: '1'},
+    {url: '/src/components/nav.html', revision: '1'},
+    {url: '/src/pages/bookmark.html', revision: '1'},
+    {url: '/src/pages/home.html', revision: '1'},
+    {url: '/src/pages/teams.html', revision: '1'}
+])
 
-//Delete Old Service Worker
-self.addEventListener('activate', event => {
-    event.waitUntil(
-        caches.keys()
-                .then(cacheNames => Promise.all(
-                    cacheNames.map(cacheName => {
-                        if(cacheName != CACHE_NAME && cacheName.startsWith('footballPWA')){
-                            console.log('Delete Older Cache : ',cacheName)
-                            return caches.delete(cacheName)
-                        }
-                    })
-                ))
-    )
-})
+//Cache Images
+workbox.routing.registerRoute(
+    /\.(?:png|gif|jpg|jpeg|svg)$/,
+    workbox.strategies.cacheOnly({
+        cacheName: 'caches-images',
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 60,
+                maxAgeSeconds: 30 * 14 * 60 * 60,
+            }),
+        ],
+    }),
+);
+
+//Assets
+workbox.routing.registerRoute(
+    new RegExp('/assets/'),
+    workbox.strategies.cacheFirst()
+)
+
+//pages & components
+workbox.routing.registerRoute(
+    new RegExp('/src/'),
+    workbox.strategies.cacheFirst()
+)
+
+//API
+workbox.routing.registerRoute(
+    new RegExp('https://api.football-data.org/'),
+    workbox.strategies.networkFirst({
+        networkTimeoutSeconds: 3,
+        cacheName: 'Football-JSON',
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 50,
+                maxAgeSeconds: 60, // 1 week
+            }),
+        ],
+    })
+)
 
 //Response to Push Notification
 self.addEventListener('push', event => {
     let body
-
     event.data ? body = event.data.text() : body = 'No Payload'
     const options = {
         body : body,
@@ -95,4 +83,3 @@ self.addEventListener('push', event => {
         self.registration.showNotification('Push Notification', options)
     )
 })
-

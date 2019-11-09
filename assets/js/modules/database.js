@@ -36,14 +36,16 @@ const deleteTeam = id => {
 }
 
 const getTeam = () => {
-    return dbPromise
+    return new Promise((resolve) => {
+        dbPromise
         .then(db => {
             let tx = db.transaction('teams','readonly')
             let store = tx.objectStore('teams')
 
             return store.getAll()
         })
-        .then(data => data)
+        .then(data => resolve(data))
+    })
 }
 
 export default {

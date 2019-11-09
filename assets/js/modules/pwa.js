@@ -2,7 +2,7 @@ const registration = () => {
     if('serviceWorker' in navigator){
         window.addEventListener('load', () => {
             navigator.serviceWorker
-                .register('./service-worker.js')
+                .register('/service-worker.js')
                 .then(() => console.log('Register Success'))
                 .catch(() => console.log('Register Not Success'))
         })
@@ -25,7 +25,8 @@ const notification = () => {
                 if(('PushManager' in window)){
                     navigator.serviceWorker.getRegistration()
                         .then(reg => {
-                            reg.pushManager
+                            if(reg){
+                                reg.pushManager
                                 .subscribe({
                                     userVisibleOnly: true,
                                     applicationServerKey: 'BNXNoZeZOKExle8MH2Hzy0VxIWBabS2CB5zTbZ_efkvu6vG12W9MdYOBWXnTzw7JvsnPBzi9Mx83xj7ROfOX7NI'
@@ -36,6 +37,7 @@ const notification = () => {
                                     console.log('Berhasil melakukan subscribe dengan auth key: ', btoa(String.fromCharCode.apply(null, new Uint8Array(sub.getKey('auth')))))
                                 })
                                 .catch(err => console.log('Gagal Subscribe : ',err))
+                            }
                         })
                 }
             })
